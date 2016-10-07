@@ -1,8 +1,9 @@
 language: python
 python:
   - "2.7"
-# install dependencies
+before_install:
+  - sudo apt-get install -qq python-numpy python-scipy
 install:
   - pip install -r requirements.txt
-# run tests
+  - pip install -r conda-requirements.txt
 script: py.test tests
