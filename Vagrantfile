@@ -14,10 +14,10 @@ Vagrant.configure("2") do |config|
     end
   
     config.vm.define "db" do |db|
-        db.vm.hostname = "db.glassbrain"    
+        db.vm.hostname = "db.glassbrain"
     end
     
     config.vm.define "mq" do |mq|
-        mq.vm.hostname = "mq.glassbrain"    
+        mq.vm.hostname = "mq.glassbrain"
     end
 end
