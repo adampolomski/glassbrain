@@ -27,3 +27,6 @@ class PredictorRepository(object):
         
     def get(self, identifier):
         return LinearSplinesPredictor([1,2,3], [1,2,3,4])
+    
+    def store(self, identifier, predictor):
+        return
