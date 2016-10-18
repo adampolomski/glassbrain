@@ -7,13 +7,17 @@ Vagrant.configure("2") do |config|
     ## For masterless, mount your salt file root
     config.vm.synced_folder "salt/roots/", "/srv/salt/"
   
+    config.vm.provision :salt do |salt|
+        salt.masterless = true
+        salt.minion_config = "salt/minion"
+        salt.run_highstate = true
+    end
+  
     config.vm.define "db" do |db|
         db.vm.hostname = "db.glassbrain"
-        
-        db.vm.provision :salt do |salt|
-          salt.masterless = true
-          salt.minion_config = "salt/minion"
-          salt.run_highstate = true
-        end
+    end
+    
+    config.vm.define "mq" do |mq|
+        mq.vm.hostname = "mq.glassbrain"
     end
 end

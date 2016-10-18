@@ -1,5 +1,5 @@
 base:
-  'db.glassbrain':
+  'G@host:db':
     - mongodb
-  'mq.glassbrain':
+  'G@host:mq':
     - rabbitmq
