@@ -1,7 +1,7 @@
 from flask import Flask
 from flask_restful import Resource, Api
 from predictor import PredictorRepository
-from price import PriceHistoryBuilder, PriceHistoryBuilder
+from price import PriceHistoryBuilder, PriceEventRepository
 
 app = Flask(__name__)
 api = Api(app)
