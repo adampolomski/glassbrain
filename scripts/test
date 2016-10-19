@@ -1,0 +1,8 @@
+  #!/bin/sh
+  gunicorn glassbrain:app &
+  sleep 5
+  PID=$!
+  dredd
+  RESULT=$?
+  kill -9 $PID
+  exit $RESULT
