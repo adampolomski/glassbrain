@@ -13,7 +13,7 @@ class PriceEventRepository(object):
         self._db = db
         
     def list(self, identifier):
-        return [PriceChange(1000, 1)]
+        return [PriceChange(1000, 0), PriceChange(1200, 1), PriceChange(1500, 4)]
     
     def add(self, identifier, change):
        (value, day) = change.extract(lambda v, d: (v, d))
