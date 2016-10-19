@@ -7,8 +7,8 @@ from db import getDb
 app = Flask(__name__)
 api = Api(app)
 
-predictorRepository = PredictorRepository(db.getDb())
-priceEventRepository = PriceEventRepository(db.getDb())
+predictorRepository = PredictorRepository()
+priceEventRepository = PriceEventRepository(getDb())
 
 class Predictions(Resource):
     def get(self, predictor_id):

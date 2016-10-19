@@ -9,6 +9,9 @@ class PriceChange(object):
     
 class PriceEventRepository(object):
         
+    def __init__(self, db):
+        self._db = db
+        
     def list(self, identifier):
         return [PriceChange(1000, 1)]
     
