@@ -5,6 +5,36 @@ HOST: https://glassbrain.herokuapp.com/v1
 
 Polls is a simple API allowing consumers to view polls and vote in them.
 
+## Predictors [/predictors/{id}]
+
++ Parameters
+
+    + id: pr100 (string) - An unique identifier of the predictor.
+
+### Create a new predictor [PUT]
+
+You may create your own predictor using this action.
+
++ Request (application/json)
+
+        {   
+            "prices": [
+                [0, 2000],
+                [1, 1500]
+            ]
+        }
+
++ Response 201 (application/json)
+
+    + Headers
+
+            Location: /predictors/pr100
+
+    + Body
+
+            {   
+            }
+
 ## Prices [/predictors/{id}/prices]
 
 + Parameters

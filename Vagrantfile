@@ -2,7 +2,7 @@ Vagrant.configure("2") do |config|
     config.hostmanager.enabled = true
     config.hostmanager.manage_host = true
     
-    config.vm.box = "bento/centos-6.8"
+    config.vm.box = "bento/centos-7.2"
 
     ## For masterless, mount your salt file root
     config.vm.synced_folder "salt/roots/", "/srv/salt/"

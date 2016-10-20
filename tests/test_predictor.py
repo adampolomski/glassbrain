@@ -1,4 +1,4 @@
-import predictor
+from glassbrain import predictor
     
 def test_should_predict():
     # given
