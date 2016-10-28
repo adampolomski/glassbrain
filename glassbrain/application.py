@@ -1,7 +1,7 @@
 from flask import Flask, g
 from flask_restful import Resource, Api
-from predictor import PredictorRepository
-from price import PriceHistoryBuilder, PriceEventRepository
+from glassbrain.domain.predictor import PredictorRepository
+from glassbrain.domain.price import PriceHistoryBuilder, PriceEventRepository
 from pymongo import MongoClient
 import os
 
