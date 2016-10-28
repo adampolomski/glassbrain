@@ -1,4 +1,4 @@
-from glassbrain import predictor
+from glassbrain.domain import predictor
     
 def test_should_predict():
     # given
