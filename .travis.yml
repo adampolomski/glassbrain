@@ -8,4 +8,6 @@ before_install:
 install:
   - pip install -r requirements.txt
   - pip install -r conda-requirements.txt
-script: PYTHONPATH=. py.test tests && ./scripts/functional-test
+before_script:
+  - export PYTHONPATH=$PYTHONPATH:$(pwd)
+script: py.test tests && ./scripts/functional-test
