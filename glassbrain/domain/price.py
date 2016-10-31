@@ -9,11 +9,11 @@ class PriceChange(object):
     
 class PriceEventRepository(object):
         
+    def __init__(self, db):
+        self._db = db
+        
     def list(self, identifier):
-        return [PriceChange(1000, 1)]
-    
-    def add(self, identifier, change):
-       (value, day) = change.extract(lambda v, d: (v, d))
+        return [PriceChange(1000, 0), PriceChange(1200, 1), PriceChange(1500, 4)]
     
 class PriceHistoryBuilder(object):
     

@@ -1,0 +1,7 @@
+#!/bin/sh
+gunicorn glassbrain:app &
+PID=$!
+dredd
+RESULT=$?
+kill -9 $PID
+exit $RESULT
