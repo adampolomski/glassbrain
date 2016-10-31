@@ -1,4 +1,4 @@
-import price
+from glassbrain.domain import price
     
 def test_should_build_price_history():
     # given
