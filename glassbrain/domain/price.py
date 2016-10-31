@@ -15,9 +15,6 @@ class PriceEventRepository(object):
     def list(self, identifier):
         return [PriceChange(1000, 0), PriceChange(1200, 1), PriceChange(1500, 4)]
     
-    def add(self, identifier, change):
-       (value, day) = change.extract(lambda v, d: (v, d))
-    
 class PriceHistoryBuilder(object):
     
     def __init__(self, toDay = None):
