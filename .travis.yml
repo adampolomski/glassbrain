@@ -6,7 +6,6 @@ before_install:
   - sudo apt-get install -qq python-numpy python-scipy
   - npm install -g dredd@stable --no-optional
 install:
-  - pip install .
   - pip install -r requirements.txt
   - pip install -r conda-requirements.txt
-script: py.test tests && ./scripts/functional-test
+script: python setup.py test && ./scripts/api-test

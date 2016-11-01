@@ -31,13 +31,19 @@ You may create your own predictor using this action.
             {   
             }
 
-## Prices [/predictors/{id}/predictions]
+## Predictions [/predictors/{id}/predictions{?from,step,count}]
 
 + Parameters
 
     + id: pr100 (string) - An unique identifier of the predictor.
+    + from: 10 (number,optional)
+        + Default: 0
+    + step: 2 (number,optional)
+        + Default: 1
+    + count: 15 (number,optional)
+        + Default: 0
     
-### List all prices [GET]
+### Retrieve predictions [GET]
 
 + Response 200 (application/json)
 
