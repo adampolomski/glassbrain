@@ -12,7 +12,7 @@ class LinearSplinesPredictor(object):
         self._weights = weights
 
     def predictAll(self, X):
-        return map(self._predict, X)
+        return map(self.predict, X)
         
     def predict(self, x):
         xMapped = [x] + map( lambda knot: max(0, x - knot), self._knots)
