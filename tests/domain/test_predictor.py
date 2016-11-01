@@ -5,7 +5,7 @@ def test_should_predict():
     linearPredictor = predictor.LinearSplinesPredictor([1,2,3], [1,2,3,4])
     
     # when, then
-    assert [50, 170] == linearPredictor.predict([7, 19])
+    assert [50, 170] == linearPredictor.predictAll([7, 19])
     
 def test_should_train():
     # then

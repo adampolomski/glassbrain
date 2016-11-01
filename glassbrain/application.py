@@ -33,7 +33,7 @@ class Predictions(Resource):
         p_count = request.args.get('count', 10, int)
         
         predictor = predictor_repository().get(predictor_id)
-        return map( lambda day: (day, predictor._predict(day)), range(p_from, p_from + p_count * p_step, p_step))
+        return map( lambda day: (day, predictor.predict(day)), range(p_from, p_from + p_count * p_step, p_step))
     
 class Predictor(Resource):
     
