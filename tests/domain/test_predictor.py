@@ -1,4 +1,5 @@
 from glassbrain.domain import predictor
+import numpy as np
     
 def test_should_predict():
     # given
@@ -8,5 +9,11 @@ def test_should_predict():
     assert [50, 170] == linearPredictor.predictAll([7, 19])
     
 def test_should_train():
+    # given
+    data = np.loadtxt("tests/domain/s5prices.txt")
+    
+    # when
+    linearPredictor = predictor.train(data, [90, 420]);
+    
     # then
-    linearPredictor = predictor.train([[0,0], [1,1] , [2,2]], [0,1,2]);
+    assert 3037.21 == linearPredictor.predict(2)
