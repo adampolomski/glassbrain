@@ -3,28 +3,26 @@ from flask_restful import Resource, Api
 from glassbrain.domain.predictor import PredictorRepository
 from glassbrain.domain.price import PriceHistoryBuilder, PriceEventRepository
 import os
+import redis
 
 app = Flask(__name__)
 
 app.config.from_object(__name__)
 
 app.config.update(dict(
-    #MONGODB_URI=os.environ.get('MONGODB_URI', None)
+    REDIS_URL=os.environ.get('REDIS_URL', None)
 ))
 
 def database():
-    return None
-
-#    db = getattr(g, '_database', None)
-#    if db is None:
-#        if app.config["MONGODB_URI"] is None:
-#            return None
-#        client = MongoClient(app.config["MONGODB_URI"])
-#        db = g._database = client.get_default_database()
-#    return db
+    db = getattr(g, '_database', None)
+    if db is None:
+        if app.config["REDIS_URL"] is None:
+            return None
+        db = g._database = redis.from_url(app.config["REDIS_URL"])
+    return db
 
 def predictor_repository():
-    return PredictorRepository()
+    return PredictorRepository(database())
 
 class Predictions(Resource):
     def get(self, predictor_id):
@@ -33,6 +31,8 @@ class Predictions(Resource):
         p_count = request.args.get('count', 10, int)
         
         predictor = predictor_repository().get(predictor_id)
+        if predictor is None:
+            return 404
         return map( lambda day: (day, predictor.predict(day)), range(p_from, p_from + p_count * p_step, p_step))
     
 class Predictor(Resource):

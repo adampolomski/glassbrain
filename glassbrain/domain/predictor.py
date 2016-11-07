@@ -46,9 +46,16 @@ def linear_regression(X, prices):
     return (clf, clf.score(X, prices))
 
 class PredictorRepository(object):
+    
+    def __init__(self, db):
+        self._db = db
         
     def get(self, identifier):
-        return LinearSplinesPredictor([1,2,3], [1,2,3,4])
+        predictor = self._db.get(identifier)
+        if predictor is not None:
+            return LinearSplinesPredictor([1,2,3], [1,2,3,4])
+        return None
     
     def store(self, identifier, predictor):
+        self._db.set(identifier, predictor)
         return

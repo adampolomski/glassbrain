@@ -1,5 +1,6 @@
 #!/bin/sh
-gunicorn glassbrain:app &
+redis-cli set pr100 whatever
+gunicorn -e REDIS_URL=redis://localhost:6379 glassbrain:app &
 PID=$!
 dredd
 RESULT=$?
