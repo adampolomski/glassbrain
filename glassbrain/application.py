@@ -39,6 +39,9 @@ class Predictor(Resource):
     
     def put(self, predictor_id):
         return {}, 201, {"Location": "/v1/predictors/" + predictor_id}
+    
+    def delete(self, predictor_id):
+        return {}, 200
 
 api = Api(app)
 api.add_resource(Predictor, '/v1/predictors/<predictor_id>')
