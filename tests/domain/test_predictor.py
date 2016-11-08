@@ -7,7 +7,7 @@ def test_should_predict():
     linearPredictor = predictor.LinearSplinesPredictor([1,2,3], [1,2,3,4])
     
     # when, then
-    assert linearPredictor.predict_all([7, 19]) == [50, 170]
+    assert linearPredictor.predict([7, 19]) == [50, 170]
     
 def test_should_iterate_over_knots():
     # given

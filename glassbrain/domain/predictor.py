@@ -1,5 +1,6 @@
 from sklearn import linear_model
 import math
+import collections
 
 '''
 @author: Adam Polomski
@@ -14,10 +15,12 @@ class LinearSplinesPredictor(object):
         self._weights = weights
         self._intercept = intercept
 
-    def predict_all(self, X):
-        return map(self.predict, X)
+    def predict(self, X):
+        if isinstance(X, collections.Iterable):
+            return map(self._predict, X)
+        return self._predict(X)
         
-    def predict(self, x):
+    def _predict(self, x):
         xMapped = [x] + map( lambda knot: max(0, x - knot), self._knots)
         return round(sum( w * k for (w, k) in zip(xMapped, self._weights) ) + self._intercept, 2)
 
