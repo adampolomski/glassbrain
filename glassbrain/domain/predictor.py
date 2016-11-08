@@ -65,12 +65,19 @@ class PredictorRepository(object):
         return None
     
     def store(self, identifier, predictor):
-        self._db.set(identifier, predictor.state(self._state))
+        self._db.set(identifier, predictor.state(_state_to_json))
         return
     
     def delete(self, identifier):
-        self._db.delete(identifier)
+        if self._db.delete(identifier) == 0:
+            raise NoSuchPredictor(identifier)
         return
     
-    def _state(knots, weights, intercept):
-        return json.dumps({k:knots, w:weights, i:intercept})
+def _state_to_json(knots, weights, intercept):
+    return json.dumps({"k":knots, "w":weights, "i":intercept})
+    
+class NoSuchPredictor(Exception):
+
+    def __init__(self, identifier):
+        self._identifier = identifier
+        

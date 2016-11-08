@@ -1,6 +1,6 @@
 from flask import Flask, g, request
 from flask_restful import Resource, Api
-from glassbrain.domain.predictor import PredictorRepository
+from glassbrain.domain.predictor import PredictorRepository, LinearSplinesPredictor, NoSuchPredictor
 from glassbrain.domain.price import PriceHistoryBuilder, PriceEventRepository
 import os
 import redis
@@ -38,10 +38,15 @@ class Predictions(Resource):
 class Predictor(Resource):
     
     def put(self, predictor_id):
+        predictor_repository().store(predictor_id, LinearSplinesPredictor([1, 2, 3], [1, 2, 3, 4]))
         return {}, 201, {"Location": "/v1/predictors/" + predictor_id}
     
     def delete(self, predictor_id):
-        return {}, 200
+        try:
+            predictor_repository().delete(predictor_id)
+            return {}, 200
+        except NoSuchPredictor:
+            return {}, 404
 
 api = Api(app)
 api.add_resource(Predictor, '/v1/predictors/<predictor_id>')

@@ -1,5 +1,5 @@
 #!/bin/sh
-redis-cli set pr100 '{"k":[1,2,3], "w":[1,2,3,4], "i":0}'
+redis-cli set pr101 '{"k":[1,2,3], "w":[1,2,3,4], "i":0}'
 gunicorn -e REDIS_URL=redis://localhost:6379 glassbrain:app &
 PID=$!
 dredd
