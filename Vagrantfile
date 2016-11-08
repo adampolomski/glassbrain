@@ -1,7 +1,4 @@
-Vagrant.configure("2") do |config|
-    config.hostmanager.enabled = true
-    config.hostmanager.manage_host = true
-    
+Vagrant.configure("2") do |config|    
     config.vm.box = "bento/centos-7.2"
 
     ## For masterless, mount your salt file root
@@ -15,6 +12,7 @@ Vagrant.configure("2") do |config|
   
     config.vm.define "db" do |db|
         db.vm.hostname = "db.glassbrain"
+        db.vm.network "forwarded_port", guest: 6379, host: 6379
     end
     
     config.vm.define "mq" do |mq|

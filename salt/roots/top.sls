@@ -1,5 +1,5 @@
 base:
   'G@host:db':
-    - mongodb
+    - redis
   'G@host:mq':
     - rabbitmq

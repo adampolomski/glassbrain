@@ -30,12 +30,23 @@ You may create your own predictor using this action.
     
             {   
             }
+            
+### Delete predictor [DELETE]
+
+You may delete existing predictor using this action.
+
++ Response 200 (application/json)
+
+    + Body
+    
+            {   
+            }
 
 ## Predictions [/predictors/{id}/predictions{?from,step,count}]
 
 + Parameters
 
-    + id: pr100 (string) - An unique identifier of the predictor.
+    + id: pr101 (string) - An unique identifier of the predictor.
     + from: 10 (number,optional)
         + Default: 0
     + step: 2 (number,optional)
