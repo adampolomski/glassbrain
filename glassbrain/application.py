@@ -33,7 +33,7 @@ class Predictions(Resource):
         predictor = predictor_repository().get(predictor_id)
         if predictor is None:
             return 404
-        return map( lambda day: (day, predictor.predict(day)), range(p_from, p_from + p_count * p_step, p_step))
+        return list(map( lambda day: (day, predictor.predict(day)), range(p_from, p_from + p_count * p_step, p_step)))
     
 class Predictor(Resource):
     
