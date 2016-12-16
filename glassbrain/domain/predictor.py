@@ -1,33 +1,36 @@
 from sklearn import linear_model
-import math
 import collections
 import json
+import itertools
 
 '''
 @author: Adam Polomski
 '''
-class LinearSplinesPredictor(object):
-    '''
-    Basic price predictor with linear splines.
-    '''
 
-    def __init__(self, knots, weights, intercept = 0):
+
+class LinearSplinesPredictor(object):
+    """
+    Basic price predictor with linear splines.
+    """
+
+    def __init__(self, knots, weights, intercept=0):
         self._knots = knots
         self._weights = weights
         self._intercept = intercept
 
-    def predict(self, X):
-        if isinstance(X, collections.Iterable):
-            return map(self._predict, X)
-        return self._predict(X)
+    def predict(self, x):
+        if isinstance(x, collections.Iterable):
+            return map(self._predict, x)
+        return self._predict(x)
         
     def _predict(self, x):
-        xMapped = [x] + map( lambda knot: max(0, x - knot), self._knots)
-        return round(sum( w * k for (w, k) in zip(xMapped, self._weights) ) + self._intercept, 2)
+        x_mapped = itertools.chain([x], map(lambda knot: max(0, x - knot), self._knots));
+        return round(sum( w * k for (w, k) in zip(x_mapped, self._weights) ) + self._intercept, 2)
     
-    def state(self, state):
-        return state(self._knots, self._weights, self._intercept)
-    
+    def state(self, convert_state):
+        return convert_state(self._knots, self._weights, self._intercept)
+
+
 def fit(prices, step, regression):
     best_score = None
     best_predictor = None
@@ -43,27 +46,25 @@ def fit(prices, step, regression):
                 
     return best_predictor
 
+
 def _knotify(knots, days):
     X = [[x, max(0, x-knots[0]), max(0, x-knots[1])] for x in days]
     return X
 
+
 def linear_regression(X, prices):
     clf = linear_model.LinearRegression();
     clf.fit(X, prices)
-    return (clf, clf.score(X, prices))
+    return clf, clf.score(X, prices)
+
 
 class PredictorRepository(object):
-    
     def __init__(self, db):
         self._db = db
         
     def get(self, identifier):
-        data = self._db.get(identifier)
-        if data is not None:
-            jprd = json.loads(data)
-            return LinearSplinesPredictor(jprd["k"], jprd["w"], jprd["i"])
-        return None
-    
+        return LinearSplinesPredictor([1, 2, 3], [1, 2, 3, 4])
+
     def store(self, identifier, predictor):
         self._db.set(identifier, predictor.state(_state_to_json))
         return
@@ -72,12 +73,15 @@ class PredictorRepository(object):
         if self._db.delete(identifier) == 0:
             raise NoSuchPredictor(identifier)
         return
-    
+
+
 def _state_to_json(knots, weights, intercept):
     return json.dumps({"k":knots, "w":weights, "i":intercept})
-    
+
+
 class NoSuchPredictor(Exception):
 
     def __init__(self, identifier):
         self._identifier = identifier
-        
+
+

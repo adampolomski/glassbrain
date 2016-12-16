@@ -1,1 +1,1 @@
-from application import app
+from glassbrain.application import app
